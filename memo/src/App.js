@@ -1,6 +1,6 @@
 import logo from "./logo.svg";
 import "./App.css";
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 
 function App() {
   const [number, setNumber] = useState(0);
@@ -8,10 +8,15 @@ function App() {
   const doubleNumber = useMemo(() => {
     return slowFunction(number);
   }, [number]);
-  const themeStyles = {
-    backgrondColor: dark ? "black" : "white",
-    color: dark ? "white" : "black",
-  };
+  const themeStyles = useMemo(() => {
+    return {
+      backgrondColor: dark ? "black" : "white",
+      color: dark ? "white" : "black",
+    };
+  }, [dark]);
+  useEffect(() => {
+    console.log("Theme Changed");
+  }, [themeStyles]);
   return (
     <>
       <input
